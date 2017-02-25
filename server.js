@@ -105,13 +105,20 @@ app.post('/addnote', function(req,res){
 			console.log(error);
 		}else{
 			Article.findOneAndUpdate({},{ $push: { "comments": doc._id } }, { new: true }, function(err, newdoc) {
-				// Send any errors to the browser)
 				if(err){
 					console.log(err);
-				}else{
-					//add this new note / comment to the database?
 				}
 			});
+		}
+	});
+});
+
+app.get('/allnotes', function(req, res){
+	Note.find({}, function(error, doc){
+		if(error){
+			console.log(error);
+		}else{
+			res.json(doc);
 		}
 	});
 });

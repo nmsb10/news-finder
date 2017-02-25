@@ -86,6 +86,11 @@ function genSavedArticle(input){
 	deleteButton.innerText = 'delete article';
 	deleteButton.addEventListener('click', deleteArticle, false);
 	container.appendChild(deleteButton);
+	var viewNotesButton = document.createElement('button');
+	viewNotesButton.innerText = 'display notes';
+	viewNotesButton.setAttribute('articleId',input._id);
+	viewNotesButton.addEventListener('click', displayAllNotes, false);
+	container.appendChild(viewNotesButton);
 	var addNoteButton = document.createElement('button');
 	addNoteButton.innerText = 'add a note';
 	addNoteButton.setAttribute('articleId',input._id);
@@ -114,18 +119,27 @@ function displayNoteForm(){
 	var noteInput = document.createElement('div');
 	noteInput.className = 'note-input';
 	var noteForm = document.createElement('form');
+	noteForm.setAttribute('action','/addnote');
+	noteForm.setAttribute('method','post');
 	var noteTextArea = document.createElement('textarea');
 	noteTextArea.setAttribute('rows', 3);
-	noteTextArea.setAttribute('name','noteContent');
+	//name of this textarea is comment because this is the field name in the Note.js
+	noteTextArea.setAttribute('name','comment');
 	var submitNoteButton = document.createElement('button');
 	submitNoteButton.innerText = 'submit note';
 	submitNoteButton.setAttribute('articleId',this.getAttribute('articleId'));
-	submitNoteButton.addEventListener('click', submitNote, false);
+	//submitNoteButton.addEventListener('click', submitNote, false);
 	noteForm.appendChild(noteTextArea);
 	noteForm.appendChild(submitNoteButton);
 	noteInput.appendChild(noteForm);
 	this.parentNode.appendChild(noteInput);
 	this.parentNode.removeChild(this);
+}
+
+function displayAllNotes(){
+	$.get('/allnotes', function(data){
+		console.log('all notes: ',data);
+	});
 }
 
 function submitNote(){
