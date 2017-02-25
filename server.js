@@ -12,6 +12,7 @@ var Note = require("./models/Note.js");
 
 //initialize the express server
 var app = express();
+var PORT = process.env.PORT || 3000;
 
 app.use(bodyParser.urlencoded({extended: false}));
 
@@ -126,6 +127,6 @@ app.get('/allnotes', function(req, res){
 //===================================================
 
 //listen on port 3000
-app.listen(3000, function(){
+app.listen(PORT, function(){
 	console.log('app running on port 3000');
 });
