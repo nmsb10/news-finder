@@ -2,6 +2,7 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
+var path = require('path');
 // Require request and cheerio. This makes the scraping possible
 var request = require("request");
 var cheerio = require("cheerio");
@@ -38,6 +39,10 @@ app.get('/', function(request, response){
 	response.send(index.html);
 });
 
+app.get('/savedarticles', function(request, response){
+	response.sendFile(path.join(__dirname + '/public/saved.html'));
+});
+
 app.get('/scrape/:headlineNumber', function(req, res){
 	var headlinePage = req.params.headlineNumber;
 	var url = 'https://www.democracynow.org/headlines';
@@ -64,15 +69,33 @@ app.get('/scrape/:headlineNumber', function(req, res){
 });
 
 app.post('/savearticle', function(req, res){
-	console.log(req.body);
 	var newArticle = new Article(req.body);
-	// newArticle.save(function(error, doc){
-	// 	if(error){
-	// 		console.log(error);
-	// 	}else{
+	newArticle.save(function(error, doc){
+		if(error){
+			console.log(error);
+		}else{
+			console.log(doc);
+		}
+	});
+});
 
-	// 	}
-	// });
+app.get('/findsavedarticles', function(req,res){
+	Article.find({}, function(error, doc){
+		if(error){
+			res.json(error);
+		}else{
+			res.json(doc);
+		}
+	});
+});
+
+app.post('/deletearticle', function(req,res){
+	console.log('article id to remove:', req.body.id);
+	Article.remove({_id:req.body.id}, function(error){
+		if(error){
+			console.log(error);
+		}
+	});
 });
 
 app.post('/addnote', function(req,res){
