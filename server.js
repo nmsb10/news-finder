@@ -66,13 +66,13 @@ app.get('/scrape/:headlineNumber', function(req, res){
 app.post('/savearticle', function(req, res){
 	console.log(req.body);
 	var newArticle = new Article(req.body);
-	newArticle.save(function(error, doc){
-		if(error){
-			console.log(error);
-		}else{
+	// newArticle.save(function(error, doc){
+	// 	if(error){
+	// 		console.log(error);
+	// 	}else{
 
-		}
-	});
+	// 	}
+	// });
 });
 
 app.post('/addnote', function(req,res){
