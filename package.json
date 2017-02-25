@@ -4,7 +4,8 @@
   "description": "homework fourteen",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -22,5 +23,8 @@
     "express": "^4.14.1",
     "mongoose": "^4.8.4",
     "request": "^2.79.0"
+  },
+  "engines": {
+    "node": "7.2.1"
   }
 }

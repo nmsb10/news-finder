@@ -20,7 +20,8 @@ app.use(express.static('public'));
 
 //database configuration with mongoose using the mongodb database
 //selected database name: homework14
-mongoose.connect('mongodb://localhost/homework14');
+//mongoose.connect('mongodb://localhost/homework14');
+mongoose.connect('mongodb://heroku_pfjtjzkj:u4r973hp5f37n6q3u494l3341p@ds161209.mlab.com:61209/heroku_pfjtjzkj');
 
 //save the mongoose connection to db
 var db = mongoose.connection;
